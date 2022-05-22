@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from 'tests';
 
-import { Products } from './Products';
+import { Products } from '../components/Products';
 
 describe('Products', () => {
   test('Displays page header', async () => {
