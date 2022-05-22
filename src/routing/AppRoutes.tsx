@@ -1,10 +1,10 @@
-import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import React from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 
-import { Login } from 'app/login/Login';
-import { Products } from 'app/products/components/Products';
+import { Login } from "app/login/Login";
+import Products from "app/products/components/ProductDashboard";
 
-import { AppRoute } from './AppRoute.enum';
+import { AppRoute } from "./AppRoute.enum";
 
 export const AppRoutes = () => {
   return (

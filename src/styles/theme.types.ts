@@ -9,10 +9,10 @@ declare module "@mui/material/styles" {
       black: {
         main: string;
       };
-      grey?: {
-        main?: string;
-        light?: string;
-        dark?: string;
+      grey: {
+        main: string;
+        light: string;
+        dark: string;
       };
     };
   }

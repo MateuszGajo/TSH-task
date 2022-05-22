@@ -55,7 +55,7 @@ const NavBar = ({
 
   return (
     <AppBar
-      position="static"
+      position="sticky"
       sx={{
         background: "white",
         minHeight: "144px",
