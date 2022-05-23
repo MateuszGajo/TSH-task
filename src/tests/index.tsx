@@ -4,14 +4,14 @@ import { MemoryRouter as Router } from "react-router-dom";
 import { render, RenderOptions, RenderResult } from "@testing-library/react";
 import { Queries } from "@testing-library/dom";
 import CssBaseline from "@mui/material/CssBaseline";
-import THEME from "styles/theme";
+import theme from "app/styles/theme";
 import { ThemeProvider } from "@mui/material/styles";
 
 const Wrapper = ({ children }: { children?: ReactNode }) => {
   return (
     <Router>
       <CssBaseline />
-      <ThemeProvider theme={THEME}>{children}</ThemeProvider>
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </Router>
   );
 };

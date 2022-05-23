@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import { AppRoute } from 'routing/AppRoute.enum';
+import { AppRoute } from "app/routing/AppRoute.enum";
 
 export const Login = () => {
   return (

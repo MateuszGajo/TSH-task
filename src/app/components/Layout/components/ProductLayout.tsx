@@ -17,12 +17,12 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import SearchIcon from "@mui/icons-material/Search";
-import Checkbox from "components/Checkbox";
+import Checkbox from "app/components/Checkbox";
 import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
 import MaterialLink from "@mui/material/Link";
 import { Button } from "@mui/material";
-import { AppRoute } from "routing/AppRoute.enum";
+import { AppRoute } from "app/routing/AppRoute.enum";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 

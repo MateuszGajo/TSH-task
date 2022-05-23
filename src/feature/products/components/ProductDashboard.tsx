@@ -1,6 +1,6 @@
-import { ProductLayout } from "components/Layout";
+import { ProductLayout } from "app/components/Layout";
 import { Box, Container } from "@mui/material";
-import { Product } from "../model";
+import { Product } from "app/model/product";
 import ProductList from "./ProductList";
 import ProductModal from "./ProductModal";
 import { useState } from "react";

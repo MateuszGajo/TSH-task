@@ -1,8 +1,8 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 
-import { Login } from "app/login/Login";
-import Products from "app/products/components/ProductDashboard";
+import { Login } from "feature/login/Login";
+import Products from "feature/products";
 
 import { AppRoute } from "./AppRoute.enum";
 
