@@ -8,7 +8,10 @@ import Typography from "@mui/material/Typography";
 import { ProductListItemProps } from "../types/ProductListItem.types";
 import { Box, Rating } from "@mui/material";
 
-const ProductListItem = ({ product }: ProductListItemProps) => {
+const ProductListItem = ({ product, openModal }: ProductListItemProps) => {
+  const handleActionButtonClick = () => {
+    openModal(product);
+  };
   return (
     <Card
       sx={{ maxWidth: 288, borderRadius: "8px", position: "relative" }}
@@ -36,12 +39,12 @@ const ProductListItem = ({ product }: ProductListItemProps) => {
 
       <CardMedia
         component="img"
-        height="180"
+        height="165"
         image={product.image}
         alt={product.name}
       />
       <CardContent
-        sx={{ height: "160px", display: "flex", flexDirection: "column" }}
+        sx={{ height: "145px", display: "flex", flexDirection: "column" }}
       >
         <Typography
           gutterBottom
@@ -101,6 +104,7 @@ const ProductListItem = ({ product }: ProductListItemProps) => {
           fullWidth
           variant="contained"
           disabled={!product.active}
+          onClick={handleActionButtonClick}
           sx={(theme) => ({
             textTransform: "none",
             "&.Mui-disabled": {

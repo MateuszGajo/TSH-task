@@ -1,12 +1,14 @@
 import { render } from "tests";
 import ProductListItem from "../components/ProductListItem";
 import products from "../data/Products";
+import { fireEvent } from "@testing-library/react";
 
 describe("Product item", () => {
   test("Displays all information", async () => {
     const product = { ...products[0], active: true };
-    const { container, getByText, getByAltText, getByLabelText, getByRole } =
-      render(<ProductListItem product={product} />);
+    const { getByText, getByAltText, getByLabelText, getByRole } = render(
+      <ProductListItem product={product} openModal={() => {}} />
+    );
 
     expect(getByText(product.name)).toBeInTheDocument();
     expect(getByText(product.description)).toBeInTheDocument();
@@ -20,8 +22,8 @@ describe("Product item", () => {
       ...products[0],
       active: false,
     };
-    const { container, getByText } = render(
-      <ProductListItem product={product} />
+    const { getByText } = render(
+      <ProductListItem product={product} openModal={() => {}} />
     );
     const button = getByText("Unavailable");
     expect(button).toBeInTheDocument();
@@ -33,7 +35,9 @@ describe("Product item", () => {
       ...products[0],
       rating: 2,
     };
-    const { container } = render(<ProductListItem product={product} />);
+    const { container } = render(
+      <ProductListItem product={product} openModal={() => {}} />
+    );
 
     expect(
       container.getElementsByClassName("MuiRating-iconFilled")
@@ -48,8 +52,26 @@ describe("Product item", () => {
       ...products[0],
       promo: true,
     };
-    const { getByText } = render(<ProductListItem product={product} />);
+    const { getByText } = render(
+      <ProductListItem product={product} openModal={() => {}} />
+    );
 
     expect(getByText("Promo")).toBeInTheDocument();
+  });
+
+  test("Action button should open modal", () => {
+    const product = {
+      ...products[0],
+      active: true,
+    };
+
+    const openModalMock = jest.fn();
+    const { getByText } = render(
+      <ProductListItem product={product} openModal={openModalMock} />
+    );
+
+    fireEvent.click(getByText("Show details"));
+
+    expect(openModalMock).toHaveBeenCalledTimes(1);
   });
 });
