@@ -47,7 +47,7 @@ const products: Product[] = [
   },
   {
     id: 5,
-    name: "cup",
+    name: "czupper",
     description:
       "Lorem ipsum dolor sit amet consectetur, adipisicifdsang elit. Quod laboriosam labore deserunt voluptatum velit? Ipsam hic totam enim laudantium! Debitis neque eius dolores porro ut temporibus necessitatibus deleniti soluta eum?m",
     rating: 2,

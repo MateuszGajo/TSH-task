@@ -6,6 +6,7 @@ const THEME = createTheme({
     allVariants: {
       fontFamily: `'Nunito', "Helvetica", "Arial", sans-serif`,
       color: "#1A1B1D",
+      fontWeight: 600,
     },
   },
   palette: {
@@ -15,6 +16,10 @@ const THEME = createTheme({
     },
     secondary: {
       main: "#F0F1F5",
+    },
+    action: {
+      disabledBackground: "#9194A5",
+      disabled: "white",
     },
   },
   myColor: {

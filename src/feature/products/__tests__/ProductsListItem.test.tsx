@@ -6,8 +6,8 @@ import { fireEvent } from "@testing-library/react";
 describe("Product item", () => {
   test("Displays all information", async () => {
     const product = { ...products[0], active: true };
-    const { getByText, getByAltText, getByLabelText, getByRole } = render(
-      <ProductListItem product={product} openModal={() => {}} />
+    const { getByText, getByAltText, getByLabelText } = render(
+      <ProductListItem product={product} />
     );
 
     expect(getByText(product.name)).toBeInTheDocument();
@@ -22,9 +22,7 @@ describe("Product item", () => {
       ...products[0],
       active: false,
     };
-    const { getByText } = render(
-      <ProductListItem product={product} openModal={() => {}} />
-    );
+    const { getByText } = render(<ProductListItem product={product} />);
     const button = getByText("Unavailable");
     expect(button).toBeInTheDocument();
     expect(button).toHaveAttribute("disabled");
@@ -35,9 +33,7 @@ describe("Product item", () => {
       ...products[0],
       rating: 2,
     };
-    const { container } = render(
-      <ProductListItem product={product} openModal={() => {}} />
-    );
+    const { container } = render(<ProductListItem product={product} />);
 
     expect(
       container.getElementsByClassName("MuiRating-iconFilled")
@@ -52,9 +48,7 @@ describe("Product item", () => {
       ...products[0],
       promo: true,
     };
-    const { getByText } = render(
-      <ProductListItem product={product} openModal={() => {}} />
-    );
+    const { getByText } = render(<ProductListItem product={product} />);
 
     expect(getByText("Promo")).toBeInTheDocument();
   });
@@ -66,12 +60,14 @@ describe("Product item", () => {
     };
 
     const openModalMock = jest.fn();
-    const { getByText } = render(
-      <ProductListItem product={product} openModal={openModalMock} />
+    const { getByText, container } = render(
+      <ProductListItem product={product} />
     );
 
     fireEvent.click(getByText("Show details"));
 
-    expect(openModalMock).toHaveBeenCalledTimes(1);
+    expect(
+      document.body.querySelector('[aria-labelledby="modal"]')
+    ).toBeInTheDocument();
   });
 });

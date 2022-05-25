@@ -1,36 +1,88 @@
 import { ProductLayout } from "app/components/Layout";
 import { Box, Container } from "@mui/material";
-import { Product } from "app/model/product";
+import { Product, ProductParams } from "app/model/product";
 import ProductList from "./ProductList";
-import ProductModal from "./ProductModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import products from "../data/Products";
+import Pagination from "app/components/Pagination/Pagination";
+import { useHistory, useLocation, useParams } from "react-router-dom";
+import { convertToObjectParams, convertToParams } from "../utils/Params";
+import { useProductStore } from "app/providers/RootStoreProvider";
+import { observer } from "mobx-react-lite";
+
+const DEFAULT_ITEM_LIMIT = 8;
 
 const ProductDashboard = () => {
-  const [productModal, setProductModal] = useState<null | Product>(null);
+  const location = useLocation();
+  const history = useHistory();
 
-  const openModal = (product: Product) => {
-    setProductModal(product);
+  const params = new URLSearchParams(location.search);
+
+  const [filters, setFilters] = useState<ProductParams | null>(null);
+  const [page, setPage] = useState(Number(params.get("page")) || 1);
+
+  const { loadProducts, products } = useProductStore();
+
+  const handlePageChange = (e: React.ChangeEvent<unknown>, page: number) => {
+    setFilters({ ...filters, page });
+    setPage(page);
   };
-  const closeModal = () => setProductModal(null);
+
+  const handleActiveFilterChange = (active: boolean) => {
+    setFilters({ ...filters, active });
+  };
+
+  const handlePromoFilterChange = (promo: boolean) => {
+    setFilters({ ...filters, promo });
+  };
+
+  const handleSearch = (value: string) => {
+    setFilters({ ...filters, search: value });
+  };
+
+  useEffect(() => {
+    if (!filters) return;
+
+    const stringParams = convertToParams({ ...filters });
+    history.push("?" + stringParams.toString());
+
+    loadProducts({ limit: DEFAULT_ITEM_LIMIT, ...filters });
+  }, [filters]);
+
+  useEffect(() => {
+    const objectParams = convertToObjectParams(params);
+    setFilters(objectParams);
+  }, []);
+
   return (
-    <>
-      {productModal ? (
-        <ProductModal product={productModal} closeModal={closeModal} />
-      ) : null}
-      <ProductLayout
-        onSearch={() => {}}
-        onActiveFilterChange={() => {}}
-        onPromoFilterChange={() => {}}
-      >
-        <Box my={4}>
-          <Container maxWidth="xl">
-            <ProductList products={products} openModal={openModal} />
-          </Container>
-        </Box>
-      </ProductLayout>
-    </>
+    <ProductLayout
+      onSearch={handleSearch}
+      defaultSearchValue={params.get("search") || ""}
+      onActiveFilterChange={handleActiveFilterChange}
+      onPromoFilterChange={handlePromoFilterChange}
+      defaultActiveValue={!!params.get("active")}
+      defaultPromoValue={!!params.get("promo")}
+    >
+      <Box my={4}>
+        <Container maxWidth="xl">
+          <ProductList products={products?.items} />
+          <Box display="flex" justifyContent="center" mt={2}>
+            <Pagination
+              hideNextButton={true}
+              hidePrevButton={true}
+              showFirstButton={true}
+              showLastButton={true}
+              count={products?.meta.totalPages || 0}
+              page={page}
+              siblingCount={1}
+              boundaryCount={3}
+              onChange={handlePageChange}
+            />
+          </Box>
+        </Container>
+      </Box>
+    </ProductLayout>
   );
 };
 
-export default ProductDashboard;
+export default observer(ProductDashboard);

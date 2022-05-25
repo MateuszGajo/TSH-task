@@ -7,10 +7,13 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { ProductListItemProps } from "../types/ProductListItem.types";
 import { Box, Rating } from "@mui/material";
+import { useModalStore } from "app/providers/RootStoreProvider";
+import ProductModal from "./ProductModal";
 
-const ProductListItem = ({ product, openModal }: ProductListItemProps) => {
+const ProductListItem = ({ product }: ProductListItemProps) => {
+  const { openModal } = useModalStore();
   const handleActionButtonClick = () => {
-    openModal(product);
+    openModal(<ProductModal product={product} />);
   };
   return (
     <Card
@@ -84,7 +87,7 @@ const ProductListItem = ({ product, openModal }: ProductListItemProps) => {
       >
         <Box>
           <Rating
-            value={2}
+            value={product.rating}
             size="small"
             sx={(theme) => ({
               "& .MuiRating-iconFilled": {
@@ -105,13 +108,9 @@ const ProductListItem = ({ product, openModal }: ProductListItemProps) => {
           variant="contained"
           disabled={!product.active}
           onClick={handleActionButtonClick}
-          sx={(theme) => ({
+          sx={{
             textTransform: "none",
-            "&.Mui-disabled": {
-              bgcolor: theme.myColor.grey.dark,
-              color: "White",
-            },
-          })}
+          }}
         >
           {product.active ? "Show details" : "Unavailable"}
         </Button>

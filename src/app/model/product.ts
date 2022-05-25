@@ -24,3 +24,11 @@ export interface ProductResponse {
     last: string;
   };
 }
+
+export interface ProductParams {
+  active?: boolean;
+  promo?: boolean;
+  search?: string;
+  limit?: number;
+  page?: number;
+}

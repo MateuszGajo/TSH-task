@@ -6,12 +6,16 @@ import { Queries } from "@testing-library/dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "app/styles/theme";
 import { ThemeProvider } from "@mui/material/styles";
+import ModalContainer from "app/components/modal/ModalContainer";
 
 const Wrapper = ({ children }: { children?: ReactNode }) => {
   return (
     <Router>
       <CssBaseline />
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <ModalContainer />
+        {children}
+      </ThemeProvider>
     </Router>
   );
 };

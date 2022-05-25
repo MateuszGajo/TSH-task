@@ -3,14 +3,23 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { AppProvidersProps } from "./AppProviders.types";
-import { StoreContext, store } from "./RootStoreProvider";
+import { StoreContext, store, useModalStore } from "./RootStoreProvider";
 import theme from "app/styles/theme";
+import { observer } from "mobx-react-lite";
+import ModalContainer from "app/components/modal/ModalContainer";
 
-export const AppProviders = ({ children }: AppProvidersProps) => (
-  <Router>
-    <StoreContext.Provider value={store}>
-      <CssBaseline />
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
-    </StoreContext.Provider>
-  </Router>
-);
+const AppProviders = ({ children }: AppProvidersProps) => {
+  return (
+    <Router>
+      <StoreContext.Provider value={store}>
+        <CssBaseline />
+        <ThemeProvider theme={theme}>
+          <ModalContainer />
+          {children}
+        </ThemeProvider>
+      </StoreContext.Provider>
+    </Router>
+  );
+};
+
+export default observer(AppProviders);

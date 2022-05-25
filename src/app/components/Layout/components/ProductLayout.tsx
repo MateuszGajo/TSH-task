@@ -19,7 +19,7 @@ import FormControl from "@mui/material/FormControl";
 import SearchIcon from "@mui/icons-material/Search";
 import Checkbox from "app/components/Checkbox";
 import Grid from "@mui/material/Grid";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import MaterialLink from "@mui/material/Link";
 import { Button } from "@mui/material";
 import { AppRoute } from "app/routing/AppRoute.enum";
@@ -30,7 +30,13 @@ const NavBar = ({
   onSearch,
   onActiveFilterChange,
   onPromoFilterChange,
+  defaultSearchValue,
+  defaultActiveValue,
+  defaultPromoValue,
 }: MainLayoutNavbarProps) => {
+  const localisation = useLocation();
+  const pathName = localisation.pathname;
+
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
@@ -77,8 +83,12 @@ const NavBar = ({
             <Grid item xs={4} sm={2}>
               <Typography variant="h1" sx={{ fontSize: "24px" }}>
                 <MaterialLink
-                  component={Link}
-                  to={AppRoute.Home}
+                  {...(AppRoute.Home !== pathName
+                    ? {
+                        component: Link,
+                        to: AppRoute.Home,
+                      }
+                    : {})}
                   sx={{
                     textDecoration: "none",
                     color: "black",
@@ -147,6 +157,7 @@ const NavBar = ({
                     fullWidth
                     placeholder="Search"
                     size="small"
+                    defaultValue={defaultSearchValue}
                     sx={(theme) => ({
                       "& input::placeholder": {
                         color: theme.myColor.black.main,
@@ -187,8 +198,16 @@ const NavBar = ({
                   sm: 2,
                 }}
               >
-                <Checkbox label="Active" onChange={handleActiveCheckbox} />
-                <Checkbox label="Promo" onChange={handlePromoCheckbox} />
+                <Checkbox
+                  label="Active"
+                  onChange={handleActiveCheckbox}
+                  defaultChecked={defaultActiveValue}
+                />
+                <Checkbox
+                  label="Promo"
+                  onChange={handlePromoCheckbox}
+                  defaultChecked={defaultPromoValue}
+                />
               </Box>
             </Grid>
           </Grid>
@@ -203,13 +222,21 @@ const ProductLayout = ({
   onSearch,
   onActiveFilterChange,
   onPromoFilterChange,
+  defaultSearchValue,
+  defaultActiveValue,
+  defaultPromoValue,
 }: MainLayoutProps) => {
+  console.log(defaultActiveValue);
+  console.log(defaultPromoValue);
   return (
     <Box minHeight="100vh" display="flex" flexDirection="column">
       <NavBar
         onSearch={onSearch}
         onActiveFilterChange={onActiveFilterChange}
         onPromoFilterChange={onPromoFilterChange}
+        defaultSearchValue={defaultSearchValue}
+        defaultActiveValue={defaultActiveValue}
+        defaultPromoValue={defaultPromoValue}
       />
       <Box
         flexGrow={1}

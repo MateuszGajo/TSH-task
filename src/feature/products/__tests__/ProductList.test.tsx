@@ -5,7 +5,7 @@ import products from "../data/Products";
 describe("Product list", () => {
   test("Component should render list", () => {
     const { getByText, getByAltText } = render(
-      <ProductList products={products} openModal={() => {}} />
+      <ProductList products={products} />
     );
 
     expect(getByText(products[0].name)).toBeInTheDocument();
