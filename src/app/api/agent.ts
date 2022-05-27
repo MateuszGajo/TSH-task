@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ProductResponse } from "app/model/product";
+import { ProductResponse } from "app/model/Product";
 
 axios.defaults.baseURL = "https://join-tsh-api-staging.herokuapp.com/";
 

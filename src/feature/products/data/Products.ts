@@ -1,4 +1,4 @@
-import { Product } from "app/model/product";
+import { Product } from "app/model/Product";
 
 const products: Product[] = [
   {

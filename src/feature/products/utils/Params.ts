@@ -1,4 +1,4 @@
-import { ProductParams } from "app/model/product";
+import { ProductParams } from "app/model/Product";
 
 export const convertToParams = (params: ProductParams) => {
   const urlSearchParams = new URLSearchParams();

@@ -1,6 +1,6 @@
 import agent from "app/api/agent";
-import { CustomError } from "app/model/error";
-import { ProductParams, ProductResponse } from "app/model/product";
+import { CustomError } from "app/model/Error";
+import { ProductParams, ProductResponse } from "app/model/Product";
 import { convertToParams } from "feature/products/utils/Params";
 import { makeAutoObservable, runInAction } from "mobx";
 import { runInContext } from "vm";
