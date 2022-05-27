@@ -1,16 +1,12 @@
-import { AppRoute } from '../../../src/routing/AppRoute.enum';
+import { AppRoute } from "../../../src/app/routing/AppRoute.enum";
 
 class Navigation {
   goToHome(): void {
-    cy.get(`a[href*="${AppRoute.Home}"]`)
-      .first()
-      .click();
+    cy.get(`a[href*="${AppRoute.Home}"]`).first().click();
   }
 
   goToLogin(): void {
-    cy.get(`a[href*="${AppRoute.Login}"]`)
-      .first()
-      .click();
+    cy.get(`a[href*="${AppRoute.Login}"]`).first().click();
   }
 
   get homeLink(): string {
