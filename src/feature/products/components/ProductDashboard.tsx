@@ -8,7 +8,9 @@ import Pagination from "app/components/Pagination/Pagination";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { convertToObjectParams, convertToParams } from "../utils/Params";
 import { useProductStore } from "app/providers/RootStoreProvider";
+import * as data from "app/providers/RootStoreProvider";
 import { observer } from "mobx-react-lite";
+import ProductPagination from "./ProductPagination";
 
 const DEFAULT_ITEM_LIMIT = 8;
 
@@ -16,69 +18,67 @@ const ProductDashboard = () => {
   const location = useLocation();
   const history = useHistory();
 
-  const params = new URLSearchParams(location.search);
+  const initialParams = new URLSearchParams(location.search);
 
-  const [filters, setFilters] = useState<ProductParams | null>(null);
-  const [page, setPage] = useState(Number(params.get("page")) || 1);
+  const [params, setParams] = useState<ProductParams | null>(null);
+  const [page, setPage] = useState(Number(initialParams.get("page")) || 1);
 
-  const { loadProducts, products } = useProductStore();
+  const { loadProducts, products, isLoading, error } = useProductStore();
 
   const handlePageChange = (e: React.ChangeEvent<unknown>, page: number) => {
-    setFilters({ ...filters, page });
+    setParams({ ...params, page });
     setPage(page);
   };
 
   const handleActiveFilterChange = (active: boolean) => {
-    setFilters({ ...filters, active });
+    setParams({ ...params, active });
   };
 
   const handlePromoFilterChange = (promo: boolean) => {
-    setFilters({ ...filters, promo });
+    setParams({ ...params, promo });
   };
 
   const handleSearch = (value: string) => {
-    setFilters({ ...filters, search: value });
+    setParams({ ...params, search: value });
   };
 
   useEffect(() => {
-    if (!filters) return;
+    if (!params) return;
 
-    const stringParams = convertToParams({ ...filters });
+    const stringParams = convertToParams({
+      ...params,
+      page: page > 1 ? page : undefined,
+    });
     history.push("?" + stringParams.toString());
-
-    loadProducts({ limit: DEFAULT_ITEM_LIMIT, ...filters });
-  }, [filters]);
+    loadProducts({ limit: DEFAULT_ITEM_LIMIT, ...params });
+  }, [params]);
 
   useEffect(() => {
-    const objectParams = convertToObjectParams(params);
-    setFilters(objectParams);
+    const objectParams = convertToObjectParams(initialParams);
+    setParams(objectParams);
   }, []);
 
   return (
     <ProductLayout
       onSearch={handleSearch}
-      defaultSearchValue={params.get("search") || ""}
+      defaultSearchValue={initialParams.get("search") || ""}
       onActiveFilterChange={handleActiveFilterChange}
       onPromoFilterChange={handlePromoFilterChange}
-      defaultActiveValue={!!params.get("active")}
-      defaultPromoValue={!!params.get("promo")}
+      defaultActiveValue={!!initialParams.get("active")}
+      defaultPromoValue={!!initialParams.get("promo")}
     >
       <Box my={4}>
         <Container maxWidth="xl">
-          <ProductList products={products?.items} />
-          <Box display="flex" justifyContent="center" mt={2}>
-            <Pagination
-              hideNextButton={true}
-              hidePrevButton={true}
-              showFirstButton={true}
-              showLastButton={true}
-              count={products?.meta.totalPages || 0}
-              page={page}
-              siblingCount={1}
-              boundaryCount={3}
-              onChange={handlePageChange}
-            />
-          </Box>
+          <ProductList
+            products={products?.items}
+            isLoading={isLoading}
+            error={error}
+          />
+          <ProductPagination
+            count={products?.meta.itemCount}
+            handlePageChange={handlePageChange}
+            page={page}
+          />
         </Container>
       </Box>
     </ProductLayout>

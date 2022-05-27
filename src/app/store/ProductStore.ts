@@ -1,7 +1,9 @@
-import agent from "app/Api/agent";
+import agent from "app/api/agent";
+import { CustomError } from "app/model/error";
 import { ProductParams, ProductResponse } from "app/model/product";
 import { convertToParams } from "feature/products/utils/Params";
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
+import { runInContext } from "vm";
 
 export default class ProductStore {
   constructor() {
@@ -9,14 +11,31 @@ export default class ProductStore {
   }
 
   products: ProductResponse | null = null;
+  isLoading = false;
+  error: CustomError = {
+    status: false,
+    type: "",
+    message: "",
+  };
 
   loadProducts = async (params: ProductParams) => {
     const stringParams = convertToParams(params);
-    console.log(stringParams.toString());
+
+    this.isLoading = true;
     try {
       const resp = await agent.Product.list(stringParams);
       const { data } = resp;
-      this.products = data;
-    } catch (error) {}
+      runInAction(() => {
+        this.products = data;
+        this.isLoading = false;
+      });
+    } catch (error) {
+      this.isLoading = false;
+      this.error = {
+        status: true,
+        type: "loading",
+        message: "Product loading error",
+      };
+    }
   };
 }

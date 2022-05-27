@@ -226,8 +226,6 @@ const ProductLayout = ({
   defaultActiveValue,
   defaultPromoValue,
 }: MainLayoutProps) => {
-  console.log(defaultActiveValue);
-  console.log(defaultPromoValue);
   return (
     <Box minHeight="100vh" display="flex" flexDirection="column">
       <NavBar

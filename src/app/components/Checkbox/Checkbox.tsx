@@ -5,7 +5,6 @@ import CheckIcon from "@mui/icons-material/Check";
 import { CheckboxProps as ComponentProps } from "./Checkbox.props";
 
 const Checkbox = (props: ComponentProps) => {
-  console.log(props.defaultChecked);
   return (
     <FormControlLabel
       sx={{

@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
-import ProductStore from "app/store/ProductStore";
-import AuthenticationStore from "app/store/AuthenticationStore";
-import ModalStore from "app/store/ModalStore";
+import ProductStore from "app/store/productStore";
+import AuthenticationStore from "app/store/authenticationStore";
+import ModalStore from "app/store/modalStore";
 
 interface Store {
   productStore: ProductStore;

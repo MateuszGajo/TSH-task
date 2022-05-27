@@ -17,7 +17,7 @@ const ProductListItem = ({ product }: ProductListItemProps) => {
   };
   return (
     <Card
-      sx={{ maxWidth: 288, borderRadius: "8px", position: "relative" }}
+      sx={{ width: 288, borderRadius: "8px", position: "relative" }}
       elevation={0}
     >
       {product.promo ? (

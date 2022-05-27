@@ -1,15 +1,13 @@
 import { ProductParams } from "app/model/product";
 
-export const convertToParams = (filters: ProductParams) => {
-  const params = new URLSearchParams();
-  for (const [key, value] of Object.entries(filters)) {
-    console.log(key);
-    console.log(value);
+export const convertToParams = (params: ProductParams) => {
+  const urlSearchParams = new URLSearchParams();
+  for (const [key, value] of Object.entries(params)) {
     if (value) {
-      params.append(key, String(value));
+      urlSearchParams.append(key, String(value));
     }
   }
-  return params;
+  return urlSearchParams;
 };
 
 export const convertToObjectParams = (params: URLSearchParams) => {
@@ -21,7 +19,5 @@ export const convertToObjectParams = (params: URLSearchParams) => {
     !!params.get("page") ? { page: Number(params.get("page")) } : null,
     !!params.get("search") ? { search: params.get("search") } : null
   );
-  console.log("intial");
-  console.log(productParams);
   return productParams;
 };
