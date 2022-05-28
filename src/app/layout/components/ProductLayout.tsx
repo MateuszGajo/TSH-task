@@ -19,12 +19,11 @@ import FormControl from "@mui/material/FormControl";
 import SearchIcon from "@mui/icons-material/Search";
 import Checkbox from "app/components/Checkbox";
 import Grid from "@mui/material/Grid";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import MaterialLink from "@mui/material/Link";
 import { Button } from "@mui/material";
 import { AppRoute } from "app/routing/AppRoute.enum";
-
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import { useAuthenticationStore } from "app/providers/RootStoreProvider";
 
 const NavBar = ({
   onSearch,
@@ -35,7 +34,10 @@ const NavBar = ({
   defaultPromoValue,
 }: MainLayoutNavbarProps) => {
   const localisation = useLocation();
+  const history = useHistory();
   const pathName = localisation.pathname;
+
+  const { user, logout } = useAuthenticationStore();
 
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
@@ -58,6 +60,15 @@ const NavBar = ({
 
   const handleActiveCheckbox = (value: boolean) => onActiveFilterChange(value);
   const handlePromoCheckbox = (value: boolean) => onPromoFilterChange(value);
+
+  const handleLogout = () => {
+    logout();
+    handleCloseUserMenu();
+  };
+
+  const handleLoginClick = () => {
+    history.push(AppRoute.Login);
+  };
 
   return (
     <AppBar
@@ -109,44 +120,45 @@ const NavBar = ({
               }}
             >
               <Box display="flex" justifyContent="flex-end">
-                {isAuthenticated ? (
-                  <>
-                    <Tooltip title="Open settings">
-                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        <Avatar
-                          alt="Remy Sharp"
-                          src="/static/images/avatar/2.jpg"
-                        />
-                      </IconButton>
-                    </Tooltip>
-                    <Menu
-                      sx={{ mt: "45px" }}
-                      id="menu-appbar"
-                      anchorEl={anchorElUser}
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      keepMounted
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      open={Boolean(anchorElUser)}
-                      onClose={handleCloseUserMenu}
-                    >
-                      {settings.map((setting) => (
-                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                          <Typography textAlign="center">{setting}</Typography>
+                <Box width="75px" display="flex" justifyContent="flex-end">
+                  {user ? (
+                    <>
+                      <Tooltip title="Open settings">
+                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                          <Avatar alt="user's avatar" src={user.avatar} />
+                        </IconButton>
+                      </Tooltip>
+                      <Menu
+                        sx={{ mt: "45px" }}
+                        id="menu-appbar"
+                        anchorEl={anchorElUser}
+                        anchorOrigin={{
+                          vertical: "top",
+                          horizontal: "right",
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                          vertical: "top",
+                          horizontal: "right",
+                        }}
+                        open={Boolean(anchorElUser)}
+                        onClose={handleCloseUserMenu}
+                      >
+                        <MenuItem onClick={handleLogout}>
+                          <Typography textAlign="center">Logout</Typography>
                         </MenuItem>
-                      ))}
-                    </Menu>
-                  </>
-                ) : (
-                  <Button variant="outlined" sx={{ textTransform: "none" }}>
-                    Log in
-                  </Button>
-                )}
+                      </Menu>
+                    </>
+                  ) : (
+                    <Button
+                      variant="outlined"
+                      sx={{ textTransform: "none" }}
+                      onClick={handleLoginClick}
+                    >
+                      Log in
+                    </Button>
+                  )}
+                </Box>
               </Box>
             </Grid>
 

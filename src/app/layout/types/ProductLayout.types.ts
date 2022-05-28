@@ -4,9 +4,9 @@ export interface MainLayoutNavbarProps {
   onSearch: (value: string) => void;
   onActiveFilterChange: (value: boolean) => void;
   onPromoFilterChange: (value: boolean) => void;
-  defaultSearchValue: string;
-  defaultActiveValue: boolean;
-  defaultPromoValue: boolean;
+  defaultSearchValue?: string;
+  defaultActiveValue?: boolean;
+  defaultPromoValue?: boolean;
 }
 
 export interface MainLayoutProps extends MainLayoutNavbarProps {

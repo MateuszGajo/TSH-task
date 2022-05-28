@@ -13,11 +13,11 @@ export const convertToParams = (params: ProductParams) => {
 export const convertToObjectParams = (params: URLSearchParams) => {
   const productParams: ProductParams = Object.assign(
     {},
-    !!params.get("promo") ? { promo: Boolean(params.get("promo")) } : null,
-    !!params.get("active") ? { active: Boolean(params.get("active")) } : null,
-    !!params.get("limit") ? { limit: Number(params.get("limit")) } : null,
-    !!params.get("page") ? { page: Number(params.get("page")) } : null,
-    !!params.get("search") ? { search: params.get("search") } : null
+    params.get("promo") ? { promo: Boolean(params.get("promo")) } : null,
+    params.get("active") ? { active: Boolean(params.get("active")) } : null,
+    params.get("limit") ? { limit: Number(params.get("limit")) } : null,
+    params.get("page") ? { page: Number(params.get("page")) } : null,
+    params.get("search") ? { search: params.get("search") } : null
   );
   return productParams;
 };

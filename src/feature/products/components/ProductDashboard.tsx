@@ -1,14 +1,11 @@
-import { ProductLayout } from "app/components/Layout";
+import { ProductLayout } from "app/layout";
 import { Box, Container } from "@mui/material";
-import { Product, ProductParams } from "app/model/Product";
+import { ProductParams } from "app/model/Product";
 import ProductList from "./ProductList";
 import { useEffect, useState } from "react";
-import products from "../data/Products";
-import Pagination from "app/components/Pagination/Pagination";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { convertToObjectParams, convertToParams } from "../utils/Params";
 import { useProductStore } from "app/providers/RootStoreProvider";
-import * as data from "app/providers/RootStoreProvider";
 import { observer } from "mobx-react-lite";
 import ProductPagination from "./ProductPagination";
 

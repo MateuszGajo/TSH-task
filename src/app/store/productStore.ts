@@ -3,7 +3,6 @@ import { CustomError } from "app/model/Error";
 import { ProductParams, ProductResponse } from "app/model/Product";
 import { convertToParams } from "feature/products/utils/Params";
 import { makeAutoObservable, runInAction } from "mobx";
-import { runInContext } from "vm";
 
 export default class ProductStore {
   constructor() {
