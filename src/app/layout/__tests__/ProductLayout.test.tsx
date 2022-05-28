@@ -1,8 +1,25 @@
-import React from "react";
 import { render } from "tests";
 import { fireEvent } from "@testing-library/react";
-
+import * as stores from "app/providers/RootStoreProvider";
 import ProductLayout from "../components/ProductLayout";
+
+const AUTH_STORE = {
+  login: jest.fn(),
+  user: {
+    id: 1,
+    username: "test123",
+    avatar:
+      "https://cdn.pixabay.com/photo/2020/05/09/13/29/photographer-5149664_640.jpg",
+  },
+  error: {
+    status: false,
+    type: "",
+    message: "",
+  },
+  isUserLoading: false,
+  getUser: jest.fn(),
+  logout: jest.fn(),
+};
 
 describe("Navbar", () => {
   test("Displays all information", async () => {
@@ -67,5 +84,39 @@ describe("Navbar", () => {
     expect(activteFilterMock).toHaveBeenCalledWith(false);
     expect(promoFilterMock).toHaveBeenCalledTimes(2);
     expect(promoFilterMock).toHaveBeenCalledWith(false);
+  });
+  test("user logged in, there should be user avtar", () => {
+    const authStore = {
+      ...AUTH_STORE,
+    };
+    jest
+      .spyOn(stores, "useAuthenticationStore")
+      .mockImplementation(() => authStore);
+    const { getByAltText } = render(
+      <ProductLayout
+        onSearch={() => {}}
+        onActiveFilterChange={() => {}}
+        onPromoFilterChange={() => {}}
+      />
+    );
+    expect(getByAltText("user's avatar")).toBeInTheDocument();
+  });
+  test("Logout should fire store function", () => {
+    const authStore = {
+      ...AUTH_STORE,
+    };
+    jest
+      .spyOn(stores, "useAuthenticationStore")
+      .mockImplementation(() => authStore);
+    const { getByAltText, getByText } = render(
+      <ProductLayout
+        onSearch={() => {}}
+        onActiveFilterChange={() => {}}
+        onPromoFilterChange={() => {}}
+      />
+    );
+    fireEvent.click(getByAltText("user's avatar"));
+    fireEvent.click(getByText(/logout/i));
+    expect(authStore.logout).toHaveBeenCalledTimes(1);
   });
 });

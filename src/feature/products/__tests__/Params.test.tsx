@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { ProductParams } from "app/model/product";
+import { ProductParams } from "app/model/Product";
 
 import { convertToParams, convertToObjectParams } from "../utils/Params";
 

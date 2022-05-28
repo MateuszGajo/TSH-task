@@ -14,7 +14,7 @@ const Pagination = ({
   showFirstButton,
   showLastButton,
 }: PaginationProps) => {
-  let { items } = usePagination({
+  const { items } = usePagination({
     boundaryCount,
     siblingCount,
     page,
