@@ -168,6 +168,9 @@ const NavBar = ({
                     fullWidth
                     placeholder="Search"
                     size="small"
+                    inputProps={{
+                      "data-testid": "product__search",
+                    }}
                     defaultValue={defaultSearchValue}
                     sx={(theme) => ({
                       "& input::placeholder": {

@@ -36,6 +36,7 @@ export default class ProductStore {
       });
     } catch (error) {
       this.isLoading = false;
+      this.products = null;
       this.error = {
         status: true,
         type: "loading",
