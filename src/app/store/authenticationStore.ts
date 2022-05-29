@@ -61,7 +61,7 @@ export default class AuthenticationStore {
       }
 
       const status = err.response?.status;
-      const data = err.response?.data as any;
+      const data = err.response?.data as { message: string | undefined };
       const message = data.message || "";
 
       if (status === 401 && message === "Invalid user or password")

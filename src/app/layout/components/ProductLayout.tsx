@@ -43,7 +43,6 @@ const NavBar = ({
     null
   );
   const [searchText, setSearchText] = useState("");
-  const isAuthenticated = false;
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
