@@ -32,4 +32,3 @@ const ProductPagination = ({
 };
 
 export default ProductPagination;
-

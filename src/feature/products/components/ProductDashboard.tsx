@@ -25,6 +25,7 @@ const ProductDashboard = () => {
   const handlePageChange = (e: React.ChangeEvent<unknown>, page: number) => {
     setPage(page);
     loadProducts({ limit: DEFAULT_ITEM_LIMIT, page, ...params });
+    setUrlParmas(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -40,15 +41,18 @@ const ProductDashboard = () => {
     setParams({ ...params, search: value });
   };
 
+  const setUrlParmas = (page?: number) => {
+    const stringParams = convertToParams({
+      ...params,
+      page,
+    });
+    history.push("?" + stringParams.toString());
+  };
+
   useEffect(() => {
     if (!params) return;
     setPage(1);
-    const stringParams = convertToParams({
-      ...params,
-      page: undefined,
-    });
-    history.push("?" + stringParams.toString());
-
+    setUrlParmas();
     loadProducts({ limit: DEFAULT_ITEM_LIMIT, ...params });
   }, [params]);
 

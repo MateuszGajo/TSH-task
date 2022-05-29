@@ -54,6 +54,20 @@ describe("Login", () => {
     });
   });
 
+  test("2 letters password, expect password field to be an error", async () => {
+    const { getAllByText, getByPlaceholderText } = render(<Login />);
+    const usernameInput = getByPlaceholderText(/enter username/i);
+    const passwordInput = getByPlaceholderText(/enter password/i);
+    await act(async () => {
+      fireEvent.change(usernameInput, { target: { value: "123" } });
+      fireEvent.change(passwordInput, { target: { value: "ab" } });
+    });
+
+    expect(
+      getAllByText("Password should be at least 3 characters")
+    ).toHaveLength(1);
+  });
+
   test("Valid form, shouldn't be an error or disabled button", async () => {
     const { getByText, queryAllByText, getByPlaceholderText } = render(
       <Login />
@@ -62,7 +76,7 @@ describe("Login", () => {
     const passwordInput = getByPlaceholderText(/enter password/i);
     await act(async () => {
       fireEvent.change(usernameInput, { target: { value: "1" } });
-      fireEvent.change(passwordInput, { target: { value: "1" } });
+      fireEvent.change(passwordInput, { target: { value: "132" } });
     });
     expect(getByText(/log in/i)).not.toHaveAttribute("disabled");
     expect(queryAllByText("This field is required")).toHaveLength(0);

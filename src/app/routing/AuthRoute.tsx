@@ -1,13 +1,10 @@
 import { CircularProgress } from "@mui/material";
 import { useAuthenticationStore } from "app/providers/RootStoreProvider";
 import { observer } from "mobx-react-lite";
-import { Redirect, Route, RouteProps } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
+import { AuthRouteProps } from "./AuthRoute.types";
 
-interface Props extends RouteProps {
-  children: React.ReactNode;
-}
-
-const AuthRoute = ({ children, ...rest }: Props) => {
+const AuthRoute = ({ children, ...rest }: AuthRouteProps) => {
   const { user, isUserLoading } = useAuthenticationStore();
   return (
     <Route

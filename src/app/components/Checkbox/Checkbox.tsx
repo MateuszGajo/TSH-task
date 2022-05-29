@@ -21,7 +21,7 @@ const Checkbox = (props: ComponentProps) => {
           onChange={(e) => {
             props.onChange(e.target.checked);
           }}
-          defaultChecked={props.defaultChecked}
+          checked={props.defaultChecked}
           icon={
             <Box
               width="24px"
@@ -80,4 +80,3 @@ const Checkbox = (props: ComponentProps) => {
 };
 
 export default Checkbox;
-

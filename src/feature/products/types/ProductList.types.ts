@@ -5,3 +5,12 @@ export interface ProductListProps {
   isLoading: boolean;
   error: CustomError;
 }
+
+export interface ProductListErrorProps {
+  message: string;
+}
+
+export interface ProductLoadingWrapperProps {
+  children: React.ReactNode;
+  isLoading: boolean;
+}

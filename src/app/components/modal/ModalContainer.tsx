@@ -1,7 +1,6 @@
 import { Box, IconButton, Modal } from "@mui/material";
 import { useModalStore } from "app/providers/RootStoreProvider";
 import { observer } from "mobx-react-lite";
-import React from "react";
 import CloseIcon from "@mui/icons-material/Close";
 
 export default observer(function ModalContainer() {

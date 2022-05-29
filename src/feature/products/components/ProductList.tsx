@@ -1,6 +1,10 @@
 import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
-import { ProductListProps } from "../types/ProductList.types";
+import {
+  ProductListErrorProps,
+  ProductListProps,
+  ProductLoadingWrapperProps,
+} from "../types/ProductList.types";
 import ProductListItem from "./ProductListItem";
 import CircularProgress from "@mui/material/CircularProgress";
 import clipboard from "assets/images/clipboard.png";
@@ -44,7 +48,7 @@ const EmptyList = () => {
   );
 };
 
-const ErrorList = ({ message }: { message: string }) => {
+const ErrorList = ({ message }: ProductListErrorProps) => {
   return (
     <Box
       sx={{
@@ -84,10 +88,7 @@ const ErrorList = ({ message }: { message: string }) => {
 const LoadingWrapper = ({
   children,
   isLoading,
-}: {
-  children: React.ReactNode;
-  isLoading: boolean;
-}) => {
+}: ProductLoadingWrapperProps) => {
   return (
     <>
       {isLoading ? (
