@@ -14,7 +14,7 @@ describe("Products page", () => {
     cy.get("[data-testid='product__loading']").should("not.exist");
   });
 
-  it("Should render products along with pagination on enter page", () => {
+  it("Should render products along with pagination on mount", () => {
     cy.wait("@apiProduct", { timeout: 12000 })
       .its("request.url")
       .should("contains", "limit=8");
@@ -40,7 +40,7 @@ describe("Products page", () => {
     });
   });
 
-  it("Filters should shows filtered items", () => {
+  it("Should filters items", () => {
     cy.wait("@apiProduct");
     cy.get("label").contains("Promo").click();
     cy.wait("@apiProduct");
@@ -71,7 +71,7 @@ describe("Products page", () => {
     cy.window().its("scrollY").should("equal", 0);
   });
 
-  it("Uses filters, search should add params to request and to browser url", () => {
+  it("Filtering, searching should add params to request and to browser url", () => {
     cy.wait("@apiProduct").its("request.url").should("contains", "limit=8");
 
     cy.get("[data-testid='product__search']").type("abcd{enter}");

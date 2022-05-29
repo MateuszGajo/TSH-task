@@ -72,7 +72,7 @@ describe("Login page", () => {
     cy.url().should("not.contain", "login");
   });
 
-  it("Success login expect token to be saved", () => {
+  it("Success login should save token", () => {
     cy.get("input[name='username']").type(dbUser.username);
     cy.get("input[name='password']").type(dbUser.password);
 
@@ -84,7 +84,7 @@ describe("Login page", () => {
 });
 
 describe("Auth redirects", () => {
-  it("Logged user shouldn't be abble to see login page", () => {
+  it("Logged user shouldn't be able to see login page", () => {
     cy.visit(Cypress.env().baseUrl + "/");
     cy.login();
     cy.visit(Cypress.env().baseUrl + "/login");
