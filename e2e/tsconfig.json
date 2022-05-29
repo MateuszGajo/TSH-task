@@ -2,13 +2,13 @@
   "compilerOptions": {
     "strict": true,
     "sourceMap": true,
-    "module": "esnext",
+    "module": "es2020",
     "moduleResolution": "node",
     "target": "es5",
     "lib": ["dom", "es6"],
-    "types": ["cypress"],
     "jsx": "react",
     "experimentalDecorators": true
   },
-  "compileOnSave": false
+  "compileOnSave": false,
+  "include": ["**/*.ts"]
 }

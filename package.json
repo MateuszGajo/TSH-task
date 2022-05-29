@@ -13,7 +13,9 @@
     "e2e:run:firefox": "cd e2e && ./node_modules/.bin/cypress run --browser firefox && cd ..",
     "e2e:run:chrome": "cd e2e && ./node_modules/.bin/cypress run --browser chrome && cd ..",
     "e2e:wait-and-run:firefox": "./node_modules/.bin/wait-on http://localhost:1337/ && npm run e2e:run:firefox",
-    "e2e:wait-and-run:chrome": "./node_modules/.bin/wait-on http://localhost:1337/ && npm run e2e:run:chrome"
+    "e2e:wait-and-run:chrome": "./node_modules/.bin/wait-on http://localhost:1337/ && npm run e2e:run:chrome",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --quiet"
   },
   "browserslist": {
     "production": [
@@ -37,25 +39,36 @@
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@hookform/resolvers": "^2.8.10",
+    "@material-ui/core": "^4.12.4",
     "@mui/icons-material": "^5.8.0",
     "@mui/material": "^5.8.0",
     "@testing-library/jest-dom": "5.15.0",
     "@testing-library/react": "12.1.2",
+    "@testing-library/react-hooks": "^8.0.0",
     "@types/node": "16.11.6",
     "@types/react": "17.0.34",
     "@types/react-dom": "17.0.11",
     "@types/react-router-dom": "5.3.2",
+    "axios": "^0.27.2",
+    "mobx": "^6.6.0",
+    "mobx-react-lite": "^3.4.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-hook-form": "^7.31.3",
     "react-router-dom": "5.3.0",
     "react-scripts": "4.0.3",
     "react-test-renderer": "17.0.2",
-    "typescript": "4.4.4"
+    "typescript": "4.4.4",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/jest": "^27.5.1",
     "@types/testing-library__jest-dom": "5.14.1",
     "cross-env": "7.0.3",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "http-server": "14.0.0",
     "prettier": "^2.6.2",
     "wait-on": "6.0.0"
