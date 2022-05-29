@@ -126,7 +126,7 @@ const ProductsList = ({ products, error, isLoading }: ProductListProps) => {
   return (
     <Box sx={{ position: "relative" }}>
       <LoadingWrapper isLoading={isLoading}>
-        <Grid container spacing={4}>
+        <Grid container spacing={4} data-testid="product__list">
           {products.map((product) => (
             <Grid item xs={12} sm={6} lg={4} xl={3} key={product.id}>
               <Box display="flex" justifyContent="center">

@@ -10,7 +10,12 @@ const ProductPagination = ({
 }: ProductPaginationProps) => {
   if (!count) return null;
   return (
-    <Box display="flex" justifyContent="center" mt={2}>
+    <Box
+      display="flex"
+      justifyContent="center"
+      mt={2}
+      data-testid="product__pagination"
+    >
       <Pagination
         hideNextButton={true}
         hidePrevButton={true}
@@ -27,3 +32,4 @@ const ProductPagination = ({
 };
 
 export default ProductPagination;
+

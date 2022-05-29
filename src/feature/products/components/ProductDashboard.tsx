@@ -56,7 +56,6 @@ const ProductDashboard = () => {
     const objectParams = convertToObjectParams(initialParams);
     setParams(objectParams);
   }, []);
-  console.log(products);
 
   return (
     <ProductLayout
