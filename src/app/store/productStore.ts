@@ -18,6 +18,12 @@ export default class ProductStore {
   };
 
   loadProducts = async (params: ProductParams) => {
+    this.error = {
+      status: false,
+      type: "",
+      message: "",
+    };
+
     const stringParams = convertToParams(params);
 
     this.isLoading = true;

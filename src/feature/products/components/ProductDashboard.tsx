@@ -3,7 +3,7 @@ import { Box, Container } from "@mui/material";
 import { ProductParams } from "app/model/Product";
 import ProductList from "./ProductList";
 import { useEffect, useState } from "react";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { convertToObjectParams, convertToParams } from "../utils/Params";
 import { useProductStore } from "app/providers/RootStoreProvider";
 import { observer } from "mobx-react-lite";
@@ -23,8 +23,9 @@ const ProductDashboard = () => {
   const { loadProducts, products, isLoading, error } = useProductStore();
 
   const handlePageChange = (e: React.ChangeEvent<unknown>, page: number) => {
-    setParams({ ...params, page });
     setPage(page);
+    loadProducts({ limit: DEFAULT_ITEM_LIMIT, page, ...params });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleActiveFilterChange = (active: boolean) => {
@@ -41,12 +42,13 @@ const ProductDashboard = () => {
 
   useEffect(() => {
     if (!params) return;
-
+    setPage(1);
     const stringParams = convertToParams({
       ...params,
-      page: page > 1 ? page : undefined,
+      page: undefined,
     });
     history.push("?" + stringParams.toString());
+
     loadProducts({ limit: DEFAULT_ITEM_LIMIT, ...params });
   }, [params]);
 
@@ -54,6 +56,7 @@ const ProductDashboard = () => {
     const objectParams = convertToObjectParams(initialParams);
     setParams(objectParams);
   }, []);
+  console.log(products);
 
   return (
     <ProductLayout
@@ -72,7 +75,7 @@ const ProductDashboard = () => {
             error={error}
           />
           <ProductPagination
-            count={products?.meta.itemCount}
+            count={products?.meta.totalPages}
             handlePageChange={handlePageChange}
             page={page}
           />

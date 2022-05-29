@@ -1,6 +1,5 @@
 import { Box, Grid, Typography } from "@mui/material";
-import Pagination from "app/components/Pagination/Pagination";
-import React, { useState } from "react";
+import React from "react";
 import { ProductListProps } from "../types/ProductList.types";
 import ProductListItem from "./ProductListItem";
 import CircularProgress from "@mui/material/CircularProgress";

@@ -1,6 +1,5 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import photo from "assets/images/authImage.jpg";
-import React from "react";
 import { AuthLayoutProps } from "../types/AuthLayout.types";
 
 const AuthLayout = ({ children }: AuthLayoutProps) => {

@@ -64,7 +64,7 @@ export default function usePagination(props = {}) {
       siblingCount * 2 + 1
     ),
     // Less than endPages
-    endPages[0] - 1
+    (endPages[0] < 5 ? endPages[0] - 1 : endPages[0] - 2) || count
   );
 
   // Basic list of items to render
