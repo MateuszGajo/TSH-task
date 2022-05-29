@@ -14,7 +14,7 @@ const EmptyList = () => {
   return (
     <Box
       sx={{
-        width: "600px",
+        maxWidth: "600px",
         height: "345px",
         background: "white",
         display: "flex",
@@ -52,7 +52,7 @@ const ErrorList = ({ message }: ProductListErrorProps) => {
   return (
     <Box
       sx={{
-        width: "600px",
+        maxWidth: "600px",
         height: "345px",
         background: "white",
         display: "flex",
@@ -96,9 +96,10 @@ const LoadingWrapper = ({
           sx={(theme) => ({
             color: theme.palette.primary.main,
             position: "absolute",
-            top: "20%",
+            top: "100px",
             left: "50%",
             transform: "translateX(-50%)",
+            zIndex: 2,
           })}
           data-testid="product__loading"
         />

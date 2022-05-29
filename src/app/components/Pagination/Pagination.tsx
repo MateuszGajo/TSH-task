@@ -47,8 +47,14 @@ const Pagination = ({
                   ? theme.palette.primary.main
                   : theme.myColor.black.main,
                 fontWeight: selected ? "bold" : undefined,
-                width: "30px",
-                height: "30px",
+                width: {
+                  xs: "25px",
+                  sm: "30px",
+                },
+                height: {
+                  xs: "25px",
+                  sm: "30px",
+                },
                 borderRadius: "50%",
                 fontSize: "15px",
               })}
@@ -67,8 +73,15 @@ const Pagination = ({
                 "&.Mui-disabled": {
                   color: theme.myColor.grey.dark,
                 },
-                mr: type === "first" ? 1 : 0,
-                ml: type === "last" ? 1 : 0,
+                width: "30px",
+                mr: {
+                  xs: 0,
+                  sm: type === "first" ? 1 : 0,
+                },
+                ml: {
+                  xs: 0,
+                  sm: type === "last" ? 1 : 0,
+                },
                 textTransform: "capitalize",
               })}
             >
